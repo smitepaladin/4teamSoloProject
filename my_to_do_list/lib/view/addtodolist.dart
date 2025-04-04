@@ -101,6 +101,7 @@ class _AddtodolistState extends State<Addtodolist> {
               onPressed: () => dispDatePicker(),
               child: Text('Date Picker'),
             ),
+            Text(selectDateText),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
@@ -119,7 +120,7 @@ class _AddtodolistState extends State<Addtodolist> {
                   },
                   child: Text('OK'),
                 ),
-              )
+              ),
             ],
           ),
         ),

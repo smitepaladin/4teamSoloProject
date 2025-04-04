@@ -36,7 +36,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                Message.date.toString()
+                Message.date.toString().substring(0,10)
               ),
             ),
           ],
