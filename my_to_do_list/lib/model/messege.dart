@@ -7,4 +7,6 @@ class Message {
   static bool switchBuy = true; // 구매 스위치값
   static bool switchPromise = false; // 약속 스위치값
   static bool switchStudy = false; // 스터디 스위치값
+  static String id = "admin";
+  static String pw = "1234";
 }

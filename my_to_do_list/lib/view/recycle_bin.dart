@@ -1,41 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_to_do_list/model/messege.dart';
-import 'package:my_to_do_list/model/recycle_model.dart';
 import 'package:my_to_do_list/model/todo_list_model.dart';
 import 'package:my_to_do_list/view/addtodolist.dart';
 import 'package:my_to_do_list/view/detail_todo_list.dart';
 import 'package:my_to_do_list/view/login.dart';
 import 'package:my_to_do_list/view/profile.dart';
-import 'package:my_to_do_list/view/recycle_bin.dart';
+import 'package:my_to_do_list/model/recycle_model.dart';
 
-
-class TodoListMain extends StatefulWidget {
-  const TodoListMain({super.key});
+class RecycleBin extends StatefulWidget {
+  const RecycleBin({super.key});
 
   @override
-  State<TodoListMain> createState() => _TodoListMainState();
+  State<RecycleBin> createState() => _RecycleBinState();
 }
 
-class _TodoListMainState extends State<TodoListMain> {
-  //Property
-  late List<TodoListModel> todoListModel;
+class _RecycleBinState extends State<RecycleBin> {
   late List<RecycleModel> recycleListModel;
 
 
   @override
   void initState() {
     super.initState();
-    todoListModel = [];
     recycleListModel = [];
     // addData();
   }
-
-  //   addData(){
-  //   todoListModel.add(TodoListModel(imagePath: 'images/cart.png', workList: '책구매', date: DateTime.now()));
-  //   todoListModel.add(TodoListModel(imagePath: 'images/clock.png', workList: '약속', date: DateTime.now()));
-  //   todoListModel.add(TodoListModel(imagePath: 'images/pencil.png', workList: '스터디', date: DateTime.now()));
-  // }
 
 
 
@@ -46,29 +35,16 @@ class _TodoListMainState extends State<TodoListMain> {
         title: Text("일정"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        actions: [ // 앱바 버튼은 actions 로 만든다
-          IconButton(
-            onPressed: () async{
-              await Get.to(Addtodolist());
-              rebuildData();
-            },
-            icon: Icon(Icons.add_outlined)
-          ),
-        ],
       ),
       body: Center(
         child: ListView.builder(
-          itemCount: todoListModel.length,
+          itemCount: recycleListModel.length,
           itemBuilder: (context, index) {
             return Dismissible(
                 direction: DismissDirection.endToStart,
-                key: ValueKey(todoListModel[index]),
+                key: ValueKey(recycleListModel[index]),
                 onDismissed: (direction) {
-                  Get.to(
-                    RecycleBin(),
-                    arguments: todoListModel[index]
-                  );
-                  todoListModel.remove(todoListModel[index]);
+                  recycleListModel.remove(recycleListModel[index]);
                   setState(() {});
                 },
                 background: Container(
@@ -127,7 +103,7 @@ class _TodoListMainState extends State<TodoListMain> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('images/avatar.jpg'),
               ),
-              accountName: Text(Message.id),
+              accountName: Text(Message.idpw[0].id),
               accountEmail: Text('Pickachu@naver.com'),
               decoration: BoxDecoration(
                 color: Colors.red,
