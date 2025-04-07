@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_to_do_list/controller/todoListController.dart';
 import 'package:my_to_do_list/model/messege.dart';
-import 'package:my_to_do_list/model/recycle_model.dart';
 import 'package:my_to_do_list/model/todo_list_model.dart';
 import 'package:my_to_do_list/view/addtodolist.dart';
 import 'package:my_to_do_list/view/detail_todo_list.dart';
+import 'package:my_to_do_list/view/recycle_bin.dart';
 import 'package:my_to_do_list/view/login.dart';
 import 'package:my_to_do_list/view/profile.dart';
-import 'package:my_to_do_list/view/recycle_bin.dart';
 
 
 class TodoListMain extends StatefulWidget {
@@ -18,26 +18,13 @@ class TodoListMain extends StatefulWidget {
 }
 
 class _TodoListMainState extends State<TodoListMain> {
-  //Property
-  late List<TodoListModel> todoListModel;
-  late List<RecycleModel> recycleListModel;
-
+  final TodoListController controller = Get.put(TodoListController());
 
   @override
   void initState() {
     super.initState();
-    todoListModel = [];
-    recycleListModel = [];
-    // addData();
+    // 데이터 초기화 또는 불러오기 등의 작업은 여기서 처리할 수 있습니다.
   }
-
-  //   addData(){
-  //   todoListModel.add(TodoListModel(imagePath: 'images/cart.png', workList: '책구매', date: DateTime.now()));
-  //   todoListModel.add(TodoListModel(imagePath: 'images/clock.png', workList: '약속', date: DateTime.now()));
-  //   todoListModel.add(TodoListModel(imagePath: 'images/pencil.png', workList: '스터디', date: DateTime.now()));
-  // }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,30 +33,31 @@ class _TodoListMainState extends State<TodoListMain> {
         title: Text("일정"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        actions: [ // 앱바 버튼은 actions 로 만든다
+        actions: [
           IconButton(
-            onPressed: () async{
+            onPressed: () async {
               await Get.to(Addtodolist());
               rebuildData();
             },
-            icon: Icon(Icons.add_outlined)
+            icon: Icon(Icons.add_outlined),
           ),
         ],
       ),
       body: Center(
-        child: ListView.builder(
-          itemCount: todoListModel.length,
-          itemBuilder: (context, index) {
-            return Dismissible(
+        child: Obx(() {  // Obx를 사용하여 controller의 todoListModel이 변경될 때마다 UI가 업데이트되도록 함
+          return ListView.builder(
+            itemCount: controller.todoListModel.length,
+            itemBuilder: (context, index) {
+              return Dismissible(
                 direction: DismissDirection.endToStart,
-                key: ValueKey(todoListModel[index]),
+                key: ValueKey(controller.todoListModel[index]),
                 onDismissed: (direction) {
                   Get.to(
                     RecycleBin(),
-                    arguments: todoListModel[index]
+                    arguments: controller.todoListModel[index],
                   );
-                  todoListModel.remove(todoListModel[index]);
-                  setState(() {});
+                  controller.removeTodo(controller.todoListModel[index]);
+                  buttonSnack();
                 },
                 background: Container(
                   color: Colors.red,
@@ -79,46 +67,50 @@ class _TodoListMainState extends State<TodoListMain> {
                     Icons.delete_forever,
                     size: 50,
                   ),
-                ),              
-              child: GestureDetector( // 카드는 터치기능이 없다. 그래서 제스쳐디텍터를 넣어줘야한다.
-                onTap: () async{
-                  Message.imagePath = todoListModel[index].imagePath;
-                  Message.workList = todoListModel[index].workList; // message.dart에서 선언한 Static Class
-                  await Get.to(DetailTodoList());
-                  rebuildData();
-                },
-                child: SizedBox(
-                  height: 60,
-                  child: Card(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            todoListModel[index].imagePath,
+                ),
+                child: GestureDetector(
+                  onTap: () async {
+                    Message.imagePath = controller.todoListModel[index].imagePath;
+                    Message.workList = controller.todoListModel[index].workList;
+                    Message.date = controller.todoListModel[index].date;
+                    Message.category = controller.todoListModel[index].category;
+                    await Get.to(DetailTodoList());
+                    rebuildData();
+                  },
+                  child: SizedBox(
+                    height: 60,
+                    child: Card(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              controller.todoListModel[index].imagePath,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                          child: Text(
-                            todoListModel[index].workList,
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              controller.todoListModel[index].workList,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                          child: Text(
-                            todoListModel[index].date.toString().substring(0,10)
-                          )
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              controller.todoListModel[index].date.toString().substring(0, 10),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
-        ),
+              );
+            },
+          );
+        }),
       ),
+      
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -134,25 +126,21 @@ class _TodoListMainState extends State<TodoListMain> {
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
-                )
+                ),
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.yard_outlined
-              ),
+              leading: Icon(Icons.yard_outlined),
               title: Text('프로필보기'),
-              onTap:() {
+              onTap: () {
                 Get.to(Profile());
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.today
-              ),
+              leading: Icon(Icons.today),
               title: Text('오늘의 일정'),
-              onTap:() {
-                //
+              onTap: () {
+                Get.to(TodoListMain());
               },
             ),
             ListTile(
@@ -160,9 +148,9 @@ class _TodoListMainState extends State<TodoListMain> {
                 Icons.recycling,
                 color: Colors.red,
               ),
-              title: Text('삭제된 일정'),
-              onTap:() {
-                //
+              title: Text('휴지통'),
+              onTap: () {
+                Get.to(RecycleBin());
               },
             ),
             ListTile(
@@ -171,24 +159,57 @@ class _TodoListMainState extends State<TodoListMain> {
                 color: Colors.black,
               ),
               title: Text('로그아웃'),
-              onTap:() {
-                Get.off(Login());
+              onTap: () {
+                Get.offAll(Login());
+                logOutSnack();
               },
             ),
           ],
-        )
-      ),      
+        ),
+      ),
     );
-  }//build
+  }
 
   // == Functions ==
-
-  rebuildData(){
-    if(Message.action == true){
-      todoListModel.add(TodoListModel(imagePath: Message.imagePath, workList: Message.workList, date: Message.date));
+  rebuildData() {
+    if (Message.action == true) {
+      controller.addTodo(TodoListModel(
+        imagePath: Message.imagePath,
+        workList: Message.workList,
+        category: Message.category,
+        date: Message.date,
+      ));
       Message.action = false; // 데이터를 넣었으니 너는 옛날 데이터야
     }
-    
-    setState(() {});
   }
-}//Class
+}
+
+
+  logOutSnack(){
+    Get.snackbar(
+      '알림', // 변수도 넣을 수 있다
+      '로그아웃 되었습니다',
+      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.red,
+      colorText: Colors.white
+    );
+  }
+
+
+  buttonSnack(){
+    Get.snackbar(
+      '알림', // 변수도 넣을 수 있다
+      '일정이 휴지통으로 이동되었습니다',
+      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.red,
+      colorText: Colors.white
+    );
+  }
+
+
+
+
+
+  
