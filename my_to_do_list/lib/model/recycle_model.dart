@@ -2,9 +2,10 @@ class RecycleModel {
   //Property
 
 
-  String imagePath; // 이미지 파일 주소와 파일명
-  String workList; // 사용자 일정 입력값
-  DateTime date; // 캘린더에서 뽑아올 시간
+  String recycleimagePath; // 이미지 파일 주소와 파일명
+  String recycleworkList; // 사용자 일정 입력값
+  String recyclecategory = "";
+  DateTime recycledate; // 캘린더에서 뽑아올 시간
 
 
 
@@ -12,9 +13,10 @@ class RecycleModel {
 
   RecycleModel(
     {
-      required this.imagePath,
-      required this.workList,
-      required this.date
+      required this.recycleimagePath,
+      required this.recycleworkList,
+      required this.recyclecategory,
+      required this.recycledate
     }
 
 

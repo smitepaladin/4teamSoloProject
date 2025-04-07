@@ -88,9 +88,10 @@ class _EnterState extends State<Login> {
     }else if(idController.text == Message.id || pwController.text == Message.pw){
       Get.snackbar(
         '환영합니다',
-        '${Message.id}님'
+        '${Message.id}님',
+        duration: Duration(seconds: 1),
       );
-      Get.to(TodoListMain());
+      Get.offAll(TodoListMain()); 
     }
   }
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_to_do_list/model/messege.dart';
-import 'package:my_to_do_list/model/todo_list_model.dart';
-import 'package:my_to_do_list/view/addtodolist.dart';
 import 'package:my_to_do_list/view/detail_todo_list.dart';
 import 'package:my_to_do_list/view/login.dart';
 import 'package:my_to_do_list/view/profile.dart';
 import 'package:my_to_do_list/model/recycle_model.dart';
+import 'package:my_to_do_list/controller/recyclebincontroller.dart';
+import 'package:my_to_do_list/view/todo_list_main.dart';
 
 class RecycleBin extends StatefulWidget {
   const RecycleBin({super.key});
@@ -16,36 +16,49 @@ class RecycleBin extends StatefulWidget {
 }
 
 class _RecycleBinState extends State<RecycleBin> {
-  late List<RecycleModel> recycleListModel;
+  final RecycleBinController controller = Get.put(RecycleBinController());
+  var value = Get.arguments;
 
-
-  @override
+@override
   void initState() {
     super.initState();
-    recycleListModel = [];
-    // addData();
+
+    // WidgetsBinding.addPostFrameCallback 사용
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      addData();
+    });
   }
 
-
+  addData() {
+    if (value != null) {
+      controller.addToRecycleBin(RecycleModel(
+        recycleimagePath: value.imagePath,
+        recycleworkList: value.workList,
+        recycledate: value.date,
+        recyclecategory: value.category
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("일정"),
+        title: Text("휴지통"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
       body: Center(
-        child: ListView.builder(
-          itemCount: recycleListModel.length,
-          itemBuilder: (context, index) {
-            return Dismissible(
+        child: Obx(() {
+          return ListView.builder(
+            itemCount: controller.recycleListModel.length,
+            itemBuilder: (context, index) {
+              return Dismissible(
                 direction: DismissDirection.endToStart,
-                key: ValueKey(recycleListModel[index]),
+                key: ValueKey(controller.recycleListModel[index]),
                 onDismissed: (direction) {
-                  recycleListModel.remove(recycleListModel[index]);
-                  setState(() {});
+                  controller.removeFromRecycleBin(controller.recycleListModel[index]);
+                  buttonSnack();
                 },
                 background: Container(
                   color: Colors.red,
@@ -55,45 +68,48 @@ class _RecycleBinState extends State<RecycleBin> {
                     Icons.delete_forever,
                     size: 50,
                   ),
-                ),              
-              child: GestureDetector( // 카드는 터치기능이 없다. 그래서 제스쳐디텍터를 넣어줘야한다.
-                onTap: () async{
-                  Message.imagePath = todoListModel[index].imagePath;
-                  Message.workList = todoListModel[index].workList; // message.dart에서 선언한 Static Class
-                  await Get.to(DetailTodoList());
-                  rebuildData();
-                },
-                child: SizedBox(
-                  height: 60,
-                  child: Card(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            todoListModel[index].imagePath,
+                ),
+                child: GestureDetector(
+                  onTap: () async {
+                    Message.recycleimagePath = controller.recycleListModel[index].recycleimagePath;
+                    Message.recycleworkList = controller.recycleListModel[index].recycleworkList;
+                    Message.recycledate = controller.recycleListModel[index].recycledate;
+                    Message.recyclecategory = controller.recycleListModel[index].recyclecategory;
+                    await Get.to(DetailTodoList());
+                    rebuildData();
+                  },
+                  child: SizedBox(
+                    height: 60,
+                    child: Card(
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              controller.recycleListModel[index].recycleimagePath,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                          child: Text(
-                            todoListModel[index].workList,
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              controller.recycleListModel[index].recycleworkList,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                          child: Text(
-                            todoListModel[index].date.toString().substring(0,10)
-                          )
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              controller.recycleListModel[index].recycledate.toString().substring(0, 10),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
-        ),
+              );
+            },
+          );
+        }),
       ),
       drawer: Drawer(
         child: ListView(
@@ -103,32 +119,28 @@ class _RecycleBinState extends State<RecycleBin> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('images/avatar.jpg'),
               ),
-              accountName: Text(Message.idpw[0].id),
+              accountName: Text(Message.id),
               accountEmail: Text('Pickachu@naver.com'),
               decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
-                )
+                ),
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.yard_outlined
-              ),
+              leading: Icon(Icons.yard_outlined),
               title: Text('프로필보기'),
-              onTap:() {
+              onTap: () {
                 Get.to(Profile());
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.today
-              ),
+              leading: Icon(Icons.today),
               title: Text('오늘의 일정'),
-              onTap:() {
-                //
+              onTap: () {
+                Get.to(TodoListMain());
               },
             ),
             ListTile(
@@ -136,9 +148,9 @@ class _RecycleBinState extends State<RecycleBin> {
                 Icons.recycling,
                 color: Colors.red,
               ),
-              title: Text('삭제된 일정'),
-              onTap:() {
-                //
+              title: Text('휴지통'),
+              onTap: () {
+                Get.to(RecycleBin());
               },
             ),
             ListTile(
@@ -147,24 +159,39 @@ class _RecycleBinState extends State<RecycleBin> {
                 color: Colors.black,
               ),
               title: Text('로그아웃'),
-              onTap:() {
+              onTap: () {
                 Get.off(Login());
               },
             ),
           ],
-        )
-      ),      
+        ),
+      ),
     );
-  }//build
+  }
 
   // == Functions ==
-
-  rebuildData(){
-    if(Message.action == true){
-      todoListModel.add(TodoListModel(imagePath: Message.imagePath, workList: Message.workList, date: Message.date));
+  rebuildData() {
+    if (Message.action == true) {
+      controller.addToRecycleBin(RecycleModel(
+        recycleimagePath: Message.recycleimagePath,
+        recycleworkList: Message.recycleworkList,
+        recycledate: Message.recycledate,
+        recyclecategory: Message.category,
+      ));
       Message.action = false; // 데이터를 넣었으니 너는 옛날 데이터야
     }
-    
-    setState(() {});
   }
-}//Class
+
+
+
+    buttonSnack(){
+    Get.snackbar(
+      '알림', // 변수도 넣을 수 있다
+      '일정이 완전히 삭제되었습니다.',
+      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.red,
+      colorText: Colors.white
+    );
+  }
+}
