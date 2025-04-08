@@ -21,23 +21,14 @@ class _DetailTodoListState extends State<DetailTodoList> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                Message.imagePath
-              ),
+            Image.asset(
+              Message.imagePath
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                Message.workList
-              ),
+            Text(
+              Message.workList
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                Message.date.toString().substring(0,10)
-              ),
+            Text(
+              Message.date.toString().substring(0,10)
             ),
           ],
         ),
