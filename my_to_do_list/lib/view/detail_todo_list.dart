@@ -21,15 +21,9 @@ class _DetailTodoListState extends State<DetailTodoList> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              Message.imagePath
-            ),
-            Text(
-              Message.workList
-            ),
-            Text(
-              Message.date.toString().substring(0,10)
-            ),
+            Image.asset(Message.imagePath),
+            Text(Message.workList),
+            Text(Message.date.toString().substring(0, 10)),
           ],
         ),
       ),

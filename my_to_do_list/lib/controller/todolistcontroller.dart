@@ -14,8 +14,4 @@ class TodoListController extends GetxController {
   void removeTodo(TodoListModel todo) {
     todoListModel.remove(todo);
   }
-
-
-  
 }
-

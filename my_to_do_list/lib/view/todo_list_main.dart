@@ -4,7 +4,7 @@ import 'package:my_to_do_list/controller/todoListController.dart';
 import 'package:my_to_do_list/model/messege.dart';
 import 'package:my_to_do_list/model/todo_list_model.dart';
 import 'package:my_to_do_list/view/addtodolist.dart';
-import 'package:my_to_do_list/view/edittodolist.dart';
+import 'package:my_to_do_list/view/detail_todo_list.dart';
 import 'package:my_to_do_list/view/menudrawer.dart';
 import 'package:my_to_do_list/view/recycle_bin.dart';
 
@@ -85,12 +85,12 @@ class _TodoListMainState extends State<TodoListMain> {
                         : DismissDirection.endToStart, // 일반 일정은 스와이프 가능
                 key: ValueKey(controller.todoListModel[index]),
                 onDismissed: (direction) {
-                    Get.to(
-                      RecycleBin(),
-                      arguments: controller.todoListModel[index],
-                    );
-                    controller.removeTodo(controller.todoListModel[index]);
-                    buttonSnack();
+                  Get.to(
+                    RecycleBin(),
+                    arguments: controller.todoListModel[index],
+                  );
+                  controller.removeTodo(controller.todoListModel[index]);
+                  buttonSnack();
                 },
                 background: Container(
                   color: Colors.red,
@@ -105,8 +105,8 @@ class _TodoListMainState extends State<TodoListMain> {
                     Message.workList = controller.todoListModel[index].workList;
                     Message.date = controller.todoListModel[index].date;
                     Message.category = controller.todoListModel[index].category;
-                    await Get.to(Edittodolist());
-                    editData();
+                    await Get.to(DetailTodoList());
+                  
                   },
                   child: SizedBox(
                     height: 60,
@@ -198,11 +198,6 @@ class _TodoListMainState extends State<TodoListMain> {
     }
   }
 }
-
-editData() {
-
-}
-
 
 
 buttonSnack() {

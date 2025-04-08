@@ -4,7 +4,6 @@ import 'package:my_to_do_list/controller/todoListController.dart';
 import 'package:my_to_do_list/view/detail_todo_list.dart';
 import 'package:my_to_do_list/view/menudrawer.dart';
 
-
 class ImportantTodoList extends StatelessWidget {
   const ImportantTodoList({super.key});
 
@@ -21,7 +20,6 @@ class ImportantTodoList extends StatelessWidget {
       drawer: Menudrawer(),
       body: Center(
         child: Obx(() {
-
           if (controller.importantTodoList.isEmpty) {
             return Center(
               child: Text(
@@ -36,15 +34,27 @@ class ImportantTodoList extends StatelessWidget {
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
-                  leading: Image.asset(controller.importantTodoList[index].imagePath),
+                  leading: Image.asset(
+                    controller.importantTodoList[index].imagePath,
+                  ),
                   title: Text(controller.importantTodoList[index].workList),
-                  subtitle: Text(controller.importantTodoList[index].date.toString().substring(0, 10)),
+                  subtitle: Text(
+                    controller.importantTodoList[index].date
+                        .toString()
+                        .substring(0, 10),
+                  ),
                   trailing: Icon(
                     Icons.star,
-                    color: controller.importantTodoList[index].star ? Colors.yellow : Colors.grey,
+                    color:
+                        controller.importantTodoList[index].star
+                            ? Colors.yellow
+                            : Colors.grey,
                   ),
                   onTap: () {
-                    Get.to(DetailTodoList(), arguments: controller.importantTodoList[index]);
+                    Get.to(
+                      DetailTodoList(),
+                      arguments: controller.importantTodoList[index],
+                    );
                   },
                 ),
               );
