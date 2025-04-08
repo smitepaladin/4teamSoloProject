@@ -96,50 +96,6 @@ class _EnterState extends State<Login> {
   }
 
 
-  rebuildData(){
-    // if(Message.action == true){
-    //   userListmodel.add(UserListmodel(id: Message.idpw[].id, pw: Message.pw));
-    //   Message.action = false; // 데이터를 넣었으니 너는 옛날 데이터야
-    // }
-    
-    // setState(() {});
-  }
-
-
-
-  // buttonSnack(){
-  //   Get.snackbar(
-  //     '환영합니다', // 변수도 넣을 수 있다
-  //     '신분이 확인되었습니다.',
-  //     snackPosition: SnackPosition.TOP, // BOTTOM
-  //     duration: Duration(seconds: 2),
-  //     backgroundColor: Colors.red,
-  //     colorText: Colors.white,
-      
-  //   );
-    
-  // }
-
-  // _showDialog(){
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (context){
-  //       return AlertDialog(
-  //         title: Text('환영 합니다!'),
-  //         content: Text('신분이 확인되었습니다.'),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Get.off(TodoListMain());
-  //             },
-  //             child: Text('OK'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
 
 }//Class

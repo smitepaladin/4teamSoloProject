@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:my_to_do_list/model/messege.dart';
+
 
 class Addtodolist extends StatefulWidget {
   const Addtodolist({super.key});
@@ -257,9 +257,9 @@ class _AddtodolistState extends State<Addtodolist> {
 
   buttonSnack(){
     Get.snackbar(
-      '알림', // 변수도 넣을 수 있다
+      '알림', 
       '일정이 추가되었습니다',
-      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      snackPosition: SnackPosition.BOTTOM, 
       duration: Duration(seconds: 2),
       backgroundColor: Colors.red,
       colorText: Colors.white
