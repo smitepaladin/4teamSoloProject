@@ -10,23 +10,43 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('프로필'),
-      ),
+      appBar: AppBar(title: Text('프로필'),
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,),
       drawer: Menudrawer(),
       body: Center(
         child: Column(
           children: [
-            Image.asset(
-              Message.profileImagepath
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(Message.profileImagepath),
             ),
-            Text(Message.profileName),
-            Text(Message.profileEmail),
-            Text(Message.profileDetail),
-            ElevatedButton(
-              onPressed: () => Get.to(Editprofile()),
-              child: Text('프로필 수정하기')
-            )
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Message.profileName, style: TextStyle(fontSize: 30)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Message.profileEmail, style: TextStyle(fontSize: 20)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Message.profileDetail, style: TextStyle(fontSize: 20)),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8,100,8,8),
+              child: ElevatedButton(
+                onPressed: () => Get.to(Editprofile()),
+                child: Text('프로필 수정하기'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

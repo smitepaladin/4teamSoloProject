@@ -45,56 +45,68 @@ class _AddtodolistState extends State<Addtodolist> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      Image.asset('images/cart.png', width: 40),
-                      Text('구매'),
-                      Radio(
-                        value: 0,
-                        groupValue: radioValue,
-                        onChanged:
-                            (value) => radioChange(value), // value값이 ? 상태이다
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Image.asset('images/cart.png', width: 40),
+                        Text('구매'),
+                        Radio(
+                          value: 0,
+                          groupValue: radioValue,
+                          onChanged:
+                              (value) => radioChange(value), // value값이 ? 상태이다
+                        ),
+                      ],
+                    ),
                   ),
 
-                  Column(
-                    children: [
-                      Image.asset('images/clock.png', width: 40),
-                      Text('약속'),
-                      Radio(
-                        value: 1,
-                        groupValue: radioValue,
-                        onChanged:
-                            (value) => radioChange(value), // value값이 ? 상태이다
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Image.asset('images/clock.png', width: 40),
+                        Text('약속'),
+                        Radio(
+                          value: 1,
+                          groupValue: radioValue,
+                          onChanged:
+                              (value) => radioChange(value), // value값이 ? 상태이다
+                        ),
+                      ],
+                    ),
                   ),
 
-                  Column(
-                    children: [
-                      Image.asset('images/pencil.png', width: 40),
-                      Text('스터디'),
-                      Radio(
-                        value: 2,
-                        groupValue: radioValue,
-                        onChanged:
-                            (value) => radioChange(value), // value값이 ? 상태이다
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Image.asset('images/pencil.png', width: 40),
+                        Text('스터디'),
+                        Radio(
+                          value: 2,
+                          groupValue: radioValue,
+                          onChanged:
+                              (value) => radioChange(value), // value값이 ? 상태이다
+                        ),
+                      ],
+                    ),
                   ),
 
-                  Column(
-                    children: [
-                      Image.asset('images/eat.jpeg', width: 40),
-                      Text('식사'),
-                      Radio(
-                        value: 3,
-                        groupValue: radioValue,
-                        onChanged:
-                            (value) => radioChange(value), // value값이 ? 상태이다
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Image.asset('images/eat.avif', width: 40),
+                        Text('식사'),
+                        Radio(
+                          value: 3,
+                          groupValue: radioValue,
+                          onChanged:
+                              (value) => radioChange(value), // value값이 ? 상태이다
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -106,13 +118,23 @@ class _AddtodolistState extends State<Addtodolist> {
                   keyboardType: TextInputType.text,
                 ),
               ),
-              ElevatedButton(
-                onPressed: () => dispDatePicker(),
-                child: Text('Date Picker'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),                  
+                  onPressed: () => dispDatePicker(),
+                  child: Text('달력에서 날짜선택'),
+                ),
               ),
               Text(selectDateText),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.fromLTRB(20,100,20,20),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -124,9 +146,18 @@ class _AddtodolistState extends State<Addtodolist> {
                   onPressed: () {
                     if (textEditingController.text.trim().isNotEmpty) {
                       _showDialog();
+                    } else {
+                      Get.snackbar(
+                        '알림', 
+                        '상세일정을 입력하세요.',
+                        snackPosition: SnackPosition.BOTTOM, // BOTTOM
+                        duration: Duration(seconds: 2),
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                      );
                     }
                   },
-                  child: Text('OK'),
+                  child: Text('일정추가'),
                 ),
               ),
             ],
@@ -154,8 +185,9 @@ class _AddtodolistState extends State<Addtodolist> {
     if (selectedDate != null) {
       selectDateText =
           "선택하신 일자는 ${selectedDate.toString().substring(0, 10)} 입니다.";
+          todate = selectedDate;
       setState(() {});
-      Message.date = selectedDate;
+      
     }
   }
 
@@ -169,8 +201,8 @@ class _AddtodolistState extends State<Addtodolist> {
     // 필요한 값을 Message 객체에 설정
     Message.category = getCatetory(radioValue);
     Message.imagePath = getImagepath(radioValue);
-    Message.workList = textEditingController.text; // 이 부분에서 상세 일정을 넣어줘야 함
-    Message.date = todate; // or selectedDate if you want the selected date
+    Message.workList = textEditingController.text; 
+    Message.date = todate; 
 
     showDialog(
       context: context,
@@ -192,6 +224,7 @@ class _AddtodolistState extends State<Addtodolist> {
                 addList(); // 리스트 추가 후 Dialog 닫기
                 Navigator.of(context).pop(); // Dialog 닫기
                 buttonSnack();
+
               },
               child: Text('예'),
             ),
@@ -241,7 +274,7 @@ class _AddtodolistState extends State<Addtodolist> {
         imagePathreturnValue = "images/pencil.png";
         break;
       case 3:
-        imagePathreturnValue = "images/eat.jpeg";
+        imagePathreturnValue = "images/eat.avif";
         break;
     }
     return imagePathreturnValue;
@@ -255,16 +288,16 @@ class _AddtodolistState extends State<Addtodolist> {
     Message.action = true;
   }
 
-  buttonSnack(){
+  buttonSnack() {
     Get.snackbar(
-      '알림', 
+      '알림',
       '일정이 추가되었습니다',
-      snackPosition: SnackPosition.BOTTOM, 
+      snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: 2),
-      backgroundColor: Colors.red,
-      colorText: Colors.white
+      backgroundColor: Colors.blue,
+      colorText: Colors.white,
+      
     );
+
   }
-
-
 }//class

@@ -34,14 +34,14 @@ class Menudrawer extends StatelessWidget {
               leading: Icon(Icons.yard_outlined),
               title: Text('프로필보기'),
               onTap: () {
-                Get.off(Profile());
+                Get.to(Profile());
               },
             ),
             ListTile(
               leading: Icon(Icons.today),
               title: Text('오늘의 일정'),
               onTap: () {
-                Get.off(TodoListMain());
+                Get.to(TodoListMain());
               },
             ),
             ListTile(

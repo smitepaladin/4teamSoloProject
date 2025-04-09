@@ -11,134 +11,104 @@ class Login extends StatefulWidget {
 }
 
 class _EnterState extends State<Login> {
-
-  late TextEditingController idController;
-  late TextEditingController pwController;
-
-
+  late TextEditingController idController; // 아이디 입력필드
+  late TextEditingController pwController; // 패스워드 입력필드
 
   @override
   void initState() {
     super.initState();
     idController = TextEditingController();
     pwController = TextEditingController();
-  
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Log in'),
+        title: Text('Todo Log in', style: TextStyle(fontSize: 30)),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
           children: [
-            Image.asset(
-              'images/avatar.jpg'
+            Image.asset('images/todo.webp'),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: idController,
+                decoration: InputDecoration(
+                  labelText: '사용자 ID를 입력하세요',
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+              ),
             ),
 
-            TextField(
-              controller: idController,
-              decoration: InputDecoration(
-                labelText: '사용자 ID를 입력하세요'
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: pwController,
+                decoration: InputDecoration(
+                  labelText: '패스워드를 입력하세요',
+                  border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                obscureText: true,
+                keyboardType: TextInputType.text,
+                maxLines: 1,
               ),
-              keyboardType: TextInputType.text,
-              maxLines: 1,
             ),
-
-            TextField(
-              controller: pwController,
-              decoration: InputDecoration(
-                labelText: '패스워드를 입력하세요',
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () => loginCheck(),
+                child: Text('Log in'),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
               ),
-              obscureText: true,
-              keyboardType: TextInputType.text,
-              maxLines: 1,
             ),
-            ElevatedButton(
-              onPressed: () => loginCheck(),
-              child: Text('Log in')
-            ),
-            // ElevatedButton(
-            // onPressed: () async{
-            //   await Get.to(Signup());
-            //   rebuildData();
-            // },
-            //   child: Text('Sign up')
-            // ),
           ],
         ),
       ),
     );
-  }// build
+  } // build
 
   /// == functions == ///
-  
 
-  loginCheck(){
-    if(idController.text != Message.id || pwController.text != Message.pw){
-      Get.snackbar(
-        '다시 확인해 주세요',
-        '아이디 또는 비밀번호가 틀립니다'
+  loginCheck() {
+    if (idController.text != Message.id || pwController.text != Message.pw) {
+        Get.snackbar(
+        '확인해주세요', // 변수도 넣을 수 있다
+        '아이디 혹은 비밀번호가 틀립니다.',
+        snackPosition: SnackPosition.BOTTOM, 
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.red, // 부정메시지 송출은 빨간색
+        colorText: Colors.white,
       );
-    }else if(idController.text == Message.id || pwController.text == Message.pw){
+    } else if (idController.text == Message.id ||
+        pwController.text == Message.pw) {
       Get.snackbar(
-        '환영합니다',
-        '${Message.id}님'
+        '환영합니다', 
+        '로그인에 성공하셨습니다.',
+        snackPosition: SnackPosition.BOTTOM, 
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.blue, // 긍정메시지 송출은 팔나색
+        colorText: Colors.white,
       );
-      Get.to(TodoListMain());
+      Get.offAll(TodoListMain()); // 메인으로 보내기
     }
   }
-
-
-  rebuildData(){
-    // if(Message.action == true){
-    //   userListmodel.add(UserListmodel(id: Message.idpw[].id, pw: Message.pw));
-    //   Message.action = false; // 데이터를 넣었으니 너는 옛날 데이터야
-    // }
-    
-    // setState(() {});
-  }
-
-
-
-  // buttonSnack(){
-  //   Get.snackbar(
-  //     '환영합니다', // 변수도 넣을 수 있다
-  //     '신분이 확인되었습니다.',
-  //     snackPosition: SnackPosition.TOP, // BOTTOM
-  //     duration: Duration(seconds: 2),
-  //     backgroundColor: Colors.red,
-  //     colorText: Colors.white,
-      
-  //   );
-    
-  // }
-
-  // _showDialog(){
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (context){
-  //       return AlertDialog(
-  //         title: Text('환영 합니다!'),
-  //         content: Text('신분이 확인되었습니다.'),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               Get.off(TodoListMain());
-  //             },
-  //             child: Text('OK'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-
 }//Class

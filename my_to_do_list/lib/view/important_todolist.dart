@@ -23,12 +23,11 @@ class ImportantTodoList extends StatelessWidget {
           if (controller.importantTodoList.isEmpty) {
             return Center(
               child: Text(
-                '중요 일정이 없습니다.\ 중요일정을 추가해주세요.',
+                '중요 일정이 없습니다. 중요일정을 추가해주세요.',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             );
           }
-
           return ListView.builder(
             itemCount: controller.importantTodoList.length,
             itemBuilder: (context, index) {
@@ -37,7 +36,7 @@ class ImportantTodoList extends StatelessWidget {
                   leading: Image.asset(
                     controller.importantTodoList[index].imagePath,
                   ),
-                  title: Text(controller.importantTodoList[index].workList),
+                  title: Text('${controller.importantTodoList[index].category} - ${controller.importantTodoList[index].workList}'),
                   subtitle: Text(
                     controller.importantTodoList[index].date
                         .toString()

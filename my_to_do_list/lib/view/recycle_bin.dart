@@ -193,7 +193,7 @@ class _RecycleBinState extends State<RecycleBin> {
       '일정이 다시 복원되었습니다.',
       snackPosition: SnackPosition.BOTTOM, // BOTTOM
       duration: Duration(seconds: 2),
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.blue,
       colorText: Colors.white,
     );    
   }

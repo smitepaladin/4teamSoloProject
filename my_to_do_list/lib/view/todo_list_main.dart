@@ -109,7 +109,7 @@ class _TodoListMainState extends State<TodoListMain> {
                   
                   },
                   child: SizedBox(
-                    height: 60,
+                    height: 100,
                     child: Card(
                       color:
                           controller.todoListModel[index].check
@@ -124,24 +124,38 @@ class _TodoListMainState extends State<TodoListMain> {
                               setState(() {});
                             },
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              controller.todoListModel[index].imagePath,
-                            ),
+                          Image.asset(
+                            controller.todoListModel[index].imagePath,
+                            height: 50,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text(
-                              controller.todoListModel[index].workList,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text(
+                          SizedBox(
+                            height: 80,
+                            width: 230,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        controller.todoListModel[index].category,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Text(
+                                        controller.todoListModel[index].workList,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
                               controller.todoListModel[index].date
                                   .toString()
                                   .substring(0, 10),
+                            ),
+                              ],
                             ),
                           ),
                           IconButton(
@@ -150,10 +164,12 @@ class _TodoListMainState extends State<TodoListMain> {
                                   !controller.todoListModel[index].star;
                               if (controller.todoListModel[index].star ==
                                   true) {
+                                importantAddSnack();
                                 controller.importantTodoList.add(
                                   controller.todoListModel[index],
                                 );
                               } else {
+                                importantDelSnack();
                                 controller.importantTodoList.remove(
                                   controller.todoListModel[index],
                                 );
@@ -209,4 +225,26 @@ buttonSnack() {
     backgroundColor: Colors.red,
     colorText: Colors.white,
   );
+}
+
+importantAddSnack() {
+  Get.snackbar(
+    '중요일정이 추가되었습니다.', // 변수도 넣을 수 있다
+    '중요일정은 삭제가 불가능합니다.',
+    snackPosition: SnackPosition.BOTTOM, // BOTTOM
+    duration: Duration(seconds: 2),
+    backgroundColor: Colors.blue,
+    colorText: Colors.white,
+  );
+}
+
+importantDelSnack(){
+    Get.snackbar(
+    '중요일정이 해제되었습니다.', // 변수도 넣을 수 있다
+    '중요일정은 목록에서도 삭제되었습니다.',
+    snackPosition: SnackPosition.BOTTOM, // BOTTOM
+    duration: Duration(seconds: 2),
+    backgroundColor: Colors.red,
+    colorText: Colors.white,
+    );
 }

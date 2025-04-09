@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_to_do_list/model/messege.dart';
+import 'package:my_to_do_list/model/important_model.dart';
 import 'package:my_to_do_list/model/recycle_model.dart';
 import 'package:my_to_do_list/model/todo_list_model.dart';
 import 'package:my_to_do_list/view/addtodolist.dart';
 import 'package:my_to_do_list/view/detail_todo_list.dart';
-import 'package:my_to_do_list/view/login.dart';
-import 'package:my_to_do_list/view/profile.dart';
-import 'package:my_to_do_list/view/recycle_bin.dart';
-
+import 'package:my_to_do_list/view/menudrawer.dart';
+import 'package:my_to_do_list/model/messege.dart';
 
 class TodoListMain extends StatefulWidget {
-  //Property
-  final List<TodoListModel> mainlist;
-  final List<RecycleModel> recyclelist;
-  const TodoListMain({super.key, required this.mainlist, required this.recyclelist});
+  const TodoListMain({super.key});
 
   @override
   State<TodoListMain> createState() => _TodoListMainState();
@@ -22,25 +17,17 @@ class TodoListMain extends StatefulWidget {
 
 class _TodoListMainState extends State<TodoListMain> {
   //Property
-  // late List<TodoListModel> todoListModel;
-  // late List<RecycleModel> recycleListModel;
+  late List<TodoListModel> todoListModel;
+  late List<ImportantModel> importantModel;
+  late List<RecycleModel> recyclemodel;
 
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   todoListModel = [];
-  //   recycleListModel = [];
-  //   // addData();
-  // }
-
-  //   addData(){
-  //   todoListModel.add(TodoListModel(imagePath: 'images/cart.png', workList: '책구매', date: DateTime.now()));
-  //   todoListModel.add(TodoListModel(imagePath: 'images/clock.png', workList: '약속', date: DateTime.now()));
-  //   todoListModel.add(TodoListModel(imagePath: 'images/pencil.png', workList: '스터디', date: DateTime.now()));
-  // }
-
-
+  @override
+  void initState() {
+    super.initState();
+    todoListModel = [];
+    importantModel = [];
+    recyclemodel = [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,69 +36,92 @@ class _TodoListMainState extends State<TodoListMain> {
         title: Text("일정"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        actions: [ // 앱바 버튼은 actions 로 만든다
+        actions: [
           IconButton(
-            onPressed: () async{
+            onPressed: () async {
               await Get.to(Addtodolist());
               rebuildData();
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => Addtodolist()),
+              // ).then((value) => rebuildData());
             },
-            icon: Icon(Icons.add_outlined)
+            icon: Icon(Icons.add_outlined),
           ),
         ],
       ),
+      drawer: Menudrawer(),
       body: Center(
         child: ListView.builder(
-          itemCount: widget.mainlist.length,
+          itemCount: todoListModel.length,
           itemBuilder: (context, index) {
-            return Dismissible(
-                direction: DismissDirection.endToStart,
-                key: ValueKey(widget.mainlist[index]),
-                onDismissed: (direction) {
-                  widget.recyclelist.add(widget.mainlist[index]);
-                  widget.mainlist.remove(widget.mainlist[index]);
-                  setState(() {});
-                },
-                background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Icon(
-                    Icons.delete_forever,
-                    size: 50,
-                  ),
-                ),              
-              child: GestureDetector( // 카드는 터치기능이 없다. 그래서 제스쳐디텍터를 넣어줘야한다.
-                onTap: () async{
-                  Message.imagePath = todoListModel[index].imagePath;
-                  Message.workList = todoListModel[index].workList; // message.dart에서 선언한 Static Class
-                  await Get.to(DetailTodoList());
-                  rebuildData();
-                },
-                child: SizedBox(
-                  height: 60,
-                  child: Card(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            todoListModel[index].imagePath,
-                          ),
+            return GestureDetector(
+              // 카드는 터치기능이 없다. 그래서 제스쳐디텍터를 넣어줘야한다.
+              onTap: () {
+                // Message.imagePath = todoListModel[index].imagePath;
+                // Message.workList =
+                //     todoListModel[index]
+                //         .workList; // message.dart에서 선언한 Static Class
+                // Message.date = todoListModel[index].date;
+                // Message.category = todoListModel[index].category;
+                // await Get.to(DetailTodoList());
+
+                Message.imagePath = todoListModel[index].imagePath;
+                Message.workList =
+                    todoListModel[index]
+                        .workList; // message.dart에서 선언한 Static Class
+                Message.date = todoListModel[index].date;
+                Message.category = todoListModel[index].category;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DetailTodoList()),
+                ).then((value) => getData());
+              },
+              child: SizedBox(
+                height: 100,
+                child: Card(
+                  color:
+                      todoListModel[index].check
+                          ? Colors.amberAccent
+                          : Colors.white,
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: todoListModel[index].check,
+                        onChanged: (value) {
+                          todoListModel[index].check = value!;
+                          setState(() {});
+                        },
+                      ),
+                      Image.asset(todoListModel[index].imagePath, height: 50),
+                      SizedBox(
+                        height: 80,
+                        width: 230,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(todoListModel[index].category),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(todoListModel[index].workList),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              todoListModel[index].date.toString().substring(
+                                0,
+                                10,
+                              ),
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                          child: Text(
-                            todoListModel[index].workList,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,0,0),
-                          child: Text(
-                            todoListModel[index].date.toString().substring(0,10)
-                          )
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -119,76 +129,43 @@ class _TodoListMainState extends State<TodoListMain> {
           },
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('images/avatar.jpg'),
-              ),
-              accountName: Text(Message.id),
-              accountEmail: Text('Pickachu@naver.com'),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                )
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.yard_outlined
-              ),
-              title: Text('프로필보기'),
-              onTap:() {
-                Get.to(Profile());
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.today
-              ),
-              title: Text('오늘의 일정'),
-              onTap:() {
-                //
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.recycling,
-                color: Colors.red,
-              ),
-              title: Text('삭제된 일정'),
-              onTap:() {
-                //
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.logout_outlined,
-                color: Colors.black,
-              ),
-              title: Text('로그아웃'),
-              onTap:() {
-                Get.off(Login());
-              },
-            ),
-          ],
-        )
-      ),      
     );
-  }//build
+  } //build
 
-  // == Functions ==
+  // functions ///
 
-  rebuildData(){
-    if(Message.action == true){
-      todoListModel.add(TodoListModel(imagePath: Message.imagePath, workList: Message.workList, date: Message.date));
+  rebuildData() {
+    if (Message.action == true) {
+      todoListModel.add(
+        TodoListModel(
+          imagePath: Message.imagePath,
+          workList: Message.workList,
+          category: Message.category,
+          check: Message.check,
+          star: Message.star,
+          date: Message.date,
+        ),
+      );
+
       Message.action = false; // 데이터를 넣었으니 너는 옛날 데이터야
+      setState(() {});
     }
-    
-    setState(() {});
   }
+
+getData() {
+  if (Message.action == true) {
+  TodoListModel(
+        imagePath: Message.imagePath,
+        workList: Message.workList,
+        category: Message.category,
+        check: false,  // 기본값을 false로 설정 (수정 시 체크박스 상태)
+        star: false,   // 기본값을 false로 설정
+        date: Message.date,
+      );
+    } 
+
+    Message.action = false; // 데이터를 추가했으므로 action을 false로 설정
+    setState(() {});  // 화면 갱신
+  }
+
 }//Class

@@ -1,12 +1,17 @@
 class Message {
-  //Property 생성자가 없다 프로퍼티만 있다
-  static String workList = ""; // 데이터를 계속 가지고 있는 프로퍼티
-  static String imagePath = "";
-  static DateTime date = DateTime.now();
+  //Property 
+  static String workList = ""; // 사용자 입력 일정 초기값
+  static String imagePath = ""; // 이미지 주소 초기값
+  static String category = ""; // 카테고리 초기값
+  static bool check = false; // 체크박스 초기값
+  static bool star = false; // 중요일정 초기값
+  static DateTime date = DateTime.now(); // 일정시간 초기값
   static bool action = false; // 입력하는 애가 준 것이 true인지 아닌지 판단기준 변수, false일때는 저장되지 않게 거른다.
-  static bool switchBuy = true; // 구매 스위치값
-  static bool switchPromise = false; // 약속 스위치값
-  static bool switchStudy = false; // 스터디 스위치값
-  static String id = "admin";
-  static String pw = "1234";
+  static DateTime importantdate = DateTime.now();  
+  static String profileImagepath = "images/cat.png"; // 프로필 이미지 초기값
+  static String profileName = "admin"; // 프로필 이름 초기값
+  static String profileEmail = "admin@naver.com"; // 프로필 이메일 초기값
+  static String profileDetail = "기본 프로필"; // 프로필 상세 초기값
+  static String id = "admin"; // 로그인 계정 아이디
+  static String pw = "1234"; // 로그인 계정 패스워드
 }
