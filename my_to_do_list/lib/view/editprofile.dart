@@ -197,14 +197,14 @@ class _EditprofileState extends State<Editprofile> {
               padding: const EdgeInsets.fromLTRB(8,100,8,8),
               child: ElevatedButton(
                 onPressed: () => editProfile(),
-                child: Text('프로필 수정하기'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                  ),              
+                  ),
+                child: Text('프로필 수정하기'),              
               ),
             ),
           ],

@@ -70,7 +70,6 @@ class _EnterState extends State<Login> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () => loginCheck(),
-                child: Text('Log in'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,
@@ -78,6 +77,7 @@ class _EnterState extends State<Login> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
+                child: Text('Log in'),
               ),
             ),
           ],

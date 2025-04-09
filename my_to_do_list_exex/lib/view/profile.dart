@@ -10,9 +10,11 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('프로필'),
-      backgroundColor: Colors.blue,
-      foregroundColor: Colors.white,),
+      appBar: AppBar(
+        title: Text('프로필'),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
       drawer: Menudrawer(),
       body: Center(
         child: Column(
@@ -31,13 +33,15 @@ class Profile extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(Message.profileDetail, style: TextStyle(fontSize: 20)),
+              child: Text(
+                Message.profileDetail,
+                style: TextStyle(fontSize: 20),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8,100,8,8),
+              padding: const EdgeInsets.fromLTRB(8, 100, 8, 8),
               child: ElevatedButton(
                 onPressed: () => Get.to(Editprofile()),
-                child: Text('프로필 수정하기'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,
@@ -45,6 +49,7 @@ class Profile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
+                child: Text('프로필 수정하기'),
               ),
             ),
           ],

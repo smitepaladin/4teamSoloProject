@@ -70,7 +70,6 @@ class _EnterState extends State<Login> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () => loginCheck(),
-                child: Text('Log in'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,
@@ -78,6 +77,7 @@ class _EnterState extends State<Login> {
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
+                child: Text('Log in'),
               ),
             ),
           ],
@@ -90,10 +90,10 @@ class _EnterState extends State<Login> {
 
   loginCheck() {
     if (idController.text != Message.id || pwController.text != Message.pw) {
-        Get.snackbar(
+      Get.snackbar(
         '확인해주세요', // 변수도 넣을 수 있다
         '아이디 혹은 비밀번호가 틀립니다.',
-        snackPosition: SnackPosition.BOTTOM, 
+        snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 2),
         backgroundColor: Colors.red, // 부정메시지 송출은 빨간색
         colorText: Colors.white,
@@ -101,9 +101,9 @@ class _EnterState extends State<Login> {
     } else if (idController.text == Message.id ||
         pwController.text == Message.pw) {
       Get.snackbar(
-        '환영합니다', 
+        '환영합니다',
         '로그인에 성공하셨습니다.',
-        snackPosition: SnackPosition.BOTTOM, 
+        snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 2),
         backgroundColor: Colors.blue, // 긍정메시지 송출은 팔나색
         colorText: Colors.white,

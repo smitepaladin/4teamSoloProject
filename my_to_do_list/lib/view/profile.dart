@@ -37,7 +37,6 @@ class Profile extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(8,100,8,8),
               child: ElevatedButton(
                 onPressed: () => Get.to(Editprofile()),
-                child: Text('프로필 수정하기'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,
@@ -45,6 +44,7 @@ class Profile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
+                child: Text('프로필 수정하기'),
               ),
             ),
           ],
