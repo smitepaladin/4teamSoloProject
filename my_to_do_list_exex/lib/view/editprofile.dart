@@ -43,171 +43,173 @@ class _EditprofileState extends State<Editprofile> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 100,
-              child: ListView(
-                scrollDirection: Axis.horizontal, // 사진 목록들이며 스와이프 가능
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/cow.png';
-                      profileImageName = "젖소";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/cow.png',
-                      width: 80,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 100,
+                child: ListView(
+                  scrollDirection: Axis.horizontal, // 사진 목록들이며 스와이프 가능
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/cow.png';
+                        profileImageName = "젖소";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/cow.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/pig.png';
-                      profileImageName = "돼지";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/pig.png',
-                      width: 80,
+        
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/pig.png';
+                        profileImageName = "돼지";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/pig.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/bee.png';
-                      profileImageName = "벌";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/bee.png',
-                      width: 80,
+        
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/bee.png';
+                        profileImageName = "벌";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/bee.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/fox.png';
-                      profileImageName = "여우";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/fox.png',
-                      width: 80,
+        
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/fox.png';
+                        profileImageName = "여우";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/fox.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/cat.png';
-                      profileImageName = "고양이";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/cat.png',
-                      width: 80,
+        
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/cat.png';
+                        profileImageName = "고양이";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/cat.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/wolf.png';
-                      profileImageName = "늑대";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/wolf.png',
-                      width: 80,
+        
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/wolf.png';
+                        profileImageName = "늑대";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/wolf.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/monkey.png';
-                      profileImageName = "원숭이";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/monkey.png',
-                      width: 80,
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/monkey.png';
+                        profileImageName = "원숭이";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/monkey.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      profileImagepath = 'images/dog.png';
-                      profileImageName = "개";
-                      setState(() {});
-                    },
-                    child: Image.asset(
-                      'images/dog.png',
-                      width: 80,
+                    GestureDetector(
+                      onTap: () {
+                        profileImagepath = 'images/dog.png';
+                        profileImageName = "개";
+                        setState(() {});
+                      },
+                      child: Image.asset(
+                        'images/dog.png',
+                        width: 80,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Text(profileImageName), // 선택한 사진이 무엇인지 알 수 있게 동물이름 표시
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: nameController, // 이름 입력필드
-                decoration: InputDecoration(
-                  labelText: '이름을 입력하세요',
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
+                  ],
                 ),
-                keyboardType: TextInputType.text,
-                maxLines: 1, // 한줄이상 못쓴다.
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: emailController,
-                decoration: InputDecoration(  // 이메일 입력필드
-                  labelText: '이메일을 입력하세요',
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),                
-                ),
-                keyboardType: TextInputType.emailAddress,
-                maxLines: 1, // 한줄이상 못쓴다.
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: detailController, // 자기소개 입력 필드
-                decoration: InputDecoration(
-                  labelText: '자기소개를 입력하세요',
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),                
-                ),
-                keyboardType: TextInputType.text,
-                maxLines: 1, // 1줄이상 못쓴다.
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8,100,8,8),
-              child: ElevatedButton(
-                onPressed: () => editProfile(), // 수정 시 변수들을 추가하는 function
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+              Text(profileImageName), // 선택한 사진이 무엇인지 알 수 있게 동물이름 표시
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: nameController, // 이름 입력필드
+                  decoration: InputDecoration(
+                    labelText: '이름을 입력하세요',
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                   ),
-                child: Text('프로필 수정하기'),              
+                  keyboardType: TextInputType.text,
+                  maxLines: 1, // 한줄이상 못쓴다.
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(  // 이메일 입력필드
+                    labelText: '이메일을 입력하세요',
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),                
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  maxLines: 1, // 한줄이상 못쓴다.
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: detailController, // 자기소개 입력 필드
+                  decoration: InputDecoration(
+                    labelText: '자기소개를 입력하세요',
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),                
+                  ),
+                  keyboardType: TextInputType.text,
+                  maxLines: 1, // 1줄이상 못쓴다.
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8,100,8,8),
+                child: ElevatedButton(
+                  onPressed: () => editProfile(), // 수정 시 변수들을 추가하는 function
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  child: Text('프로필 수정하기'),              
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

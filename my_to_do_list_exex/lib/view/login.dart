@@ -29,58 +29,60 @@ class _EnterState extends State<Login> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.asset('images/todo.webp'),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: idController,
-                decoration: InputDecoration(
-                  labelText: '사용자 ID를 입력하세요',
-                  border: OutlineInputBorder(),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Image.asset('images/todo.webp'),
+        
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: idController,
+                  decoration: InputDecoration(
+                    labelText: '사용자 ID를 입력하세요',
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
                 ),
-                keyboardType: TextInputType.text,
-                maxLines: 1,
               ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: pwController,
-                decoration: InputDecoration(
-                  labelText: '패스워드를 입력하세요',
-                  border: OutlineInputBorder(),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+        
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: pwController,
+                  decoration: InputDecoration(
+                    labelText: '패스워드를 입력하세요',
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  maxLines: 1,
                 ),
-                obscureText: true,
-                keyboardType: TextInputType.text,
-                maxLines: 1,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () => loginCheck(),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () => loginCheck(),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                   ),
+                  child: Text('Log in'),
                 ),
-                child: Text('Log in'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

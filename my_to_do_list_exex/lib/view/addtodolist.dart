@@ -39,128 +39,130 @@ class _AddtodolistState extends State<Addtodolist> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Image.asset('images/cart.png', width: 40),
-                        Text('구매'),
-                        Radio(
-                          value: 0,
-                          groupValue: radioValue,
-                          onChanged:
-                              (value) => radioChange(value),
-                        ),
-                      ],
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: [
+                          Image.asset('images/cart.png', width: 40),
+                          Text('구매'),
+                          Radio(
+                            value: 0,
+                            groupValue: radioValue,
+                            onChanged:
+                                (value) => radioChange(value),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Image.asset('images/clock.png', width: 40),
-                        Text('약속'),
-                        Radio(
-                          value: 1,
-                          groupValue: radioValue,
-                          onChanged:
-                              (value) => radioChange(value), 
-                        ),
-                      ],
+          
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: [
+                          Image.asset('images/clock.png', width: 40),
+                          Text('약속'),
+                          Radio(
+                            value: 1,
+                            groupValue: radioValue,
+                            onChanged:
+                                (value) => radioChange(value), 
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Image.asset('images/pencil.png', width: 40),
-                        Text('스터디'),
-                        Radio(
-                          value: 2,
-                          groupValue: radioValue,
-                          onChanged:
-                              (value) => radioChange(value), 
-                        ),
-                      ],
+          
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: [
+                          Image.asset('images/pencil.png', width: 40),
+                          Text('스터디'),
+                          Radio(
+                            value: 2,
+                            groupValue: radioValue,
+                            onChanged:
+                                (value) => radioChange(value), 
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Image.asset('images/eat.avif', width: 40),
-                        Text('식사'),
-                        Radio(
-                          value: 3,
-                          groupValue: radioValue,
-                          onChanged:
-                              (value) => radioChange(value), 
-                        ),
-                      ],
+          
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: [
+                          Image.asset('images/eat.avif', width: 40),
+                          Text('식사'),
+                          Radio(
+                            value: 3,
+                            groupValue: radioValue,
+                            onChanged:
+                                (value) => radioChange(value), 
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextField(
-                  controller: textEditingController,
-                  decoration: InputDecoration(labelText: '상세일정을 입력하세요'),
-                  keyboardType: TextInputType.text,
+                  ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),                  
-                  onPressed: () => dispDatePicker(),
-                  child: Text('달력에서 날짜선택'),
-                ),
-              ),
-              Text(selectDateText),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20,100,20,20),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextField(
+                    controller: textEditingController,
+                    decoration: InputDecoration(labelText: '상세일정을 입력하세요'),
+                    keyboardType: TextInputType.text,
                   ),
-                  onPressed: () {
-                    if (textEditingController.text.trim().isNotEmpty) {
-                      _showDialog();
-                    } else {
-                      Get.snackbar(
-                        '알림', 
-                        '상세일정을 입력하세요.',
-                        snackPosition: SnackPosition.BOTTOM, // BOTTOM
-                        duration: Duration(seconds: 2),
-                        backgroundColor: Colors.red,
-                        colorText: Colors.white,
-                      );
-                    }
-                  },
-                  child: Text('일정추가'),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),                  
+                    onPressed: () => dispDatePicker(),
+                    child: Text('달력에서 날짜선택'),
+                  ),
+                ),
+                Text(selectDateText),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20,100,20,20),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (textEditingController.text.trim().isNotEmpty) {
+                        _showDialog();
+                      } else {
+                        Get.snackbar(
+                          '알림', 
+                          '상세일정을 입력하세요.',
+                          snackPosition: SnackPosition.BOTTOM, // BOTTOM
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Colors.red,
+                          colorText: Colors.white,
+                        );
+                      }
+                    },
+                    child: Text('일정추가'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
