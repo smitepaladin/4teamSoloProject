@@ -11,12 +11,12 @@ class Addtodolist extends StatefulWidget {
 }
 
 class _AddtodolistState extends State<Addtodolist> {
-  late TextEditingController textEditingController;
-  late DateTime todate;
-  late String selectDateText;
-  late int radioValue; // Radio Button
-  late String imagePath;
-  late String workList;
+  late TextEditingController textEditingController; // 상세일정을 받는 텍스트필드
+  late DateTime todate; // 선택한 날짜의 날짜 변수
+  late String selectDateText; // date변수값을 년/월/일 로 표현한 String 타입 변수
+  late int radioValue; // Radio Button 변수
+  late String imagePath; // 이미지 파일명 변수
+  late String workList;// 일정 상세값 변수
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _AddtodolistState extends State<Addtodolist> {
                           value: 0,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value),
                         ),
                       ],
                     ),
@@ -71,7 +71,7 @@ class _AddtodolistState extends State<Addtodolist> {
                           value: 1,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value), 
                         ),
                       ],
                     ),
@@ -87,7 +87,7 @@ class _AddtodolistState extends State<Addtodolist> {
                           value: 2,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value), 
                         ),
                       ],
                     ),
@@ -103,7 +103,7 @@ class _AddtodolistState extends State<Addtodolist> {
                           value: 3,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value), 
                         ),
                       ],
                     ),
@@ -221,7 +221,7 @@ class _AddtodolistState extends State<Addtodolist> {
           actions: [
             TextButton(
               onPressed: () {
-                addList(); // 리스트 추가 후 Dialog 닫기
+                addList(); // 리스트 추가 function
                 Navigator.of(context).pop(); // Dialog 닫기
                 buttonSnack();
 
@@ -240,7 +240,7 @@ class _AddtodolistState extends State<Addtodolist> {
     );
   }
 
-  String getCatetory(int radioValue) {
+  String getCatetory(int radioValue) { // 선택된 radioValuer값으로 카테고리명 반영
     String catogoryReturnValue = "";
 
     switch (radioValue) {
@@ -260,7 +260,7 @@ class _AddtodolistState extends State<Addtodolist> {
     return catogoryReturnValue;
   }
 
-  String getImagepath(int radioValue) {
+  String getImagepath(int radioValue) { // 선택된 radioValuer값으로 이미지 파일명 반영
     String imagePathreturnValue = "";
 
     switch (radioValue) {
@@ -280,7 +280,7 @@ class _AddtodolistState extends State<Addtodolist> {
     return imagePathreturnValue;
   }
 
-  addList() {
+  addList() { // 추가된 값을 Message 객체에 반영
     Message.workList = textEditingController.text;
     Message.imagePath;
     Message.category;
@@ -288,7 +288,7 @@ class _AddtodolistState extends State<Addtodolist> {
     Message.action = true;
   }
 
-  buttonSnack() {
+  buttonSnack() { // 일정추가 알림 스낵바
     Get.snackbar(
       '알림',
       '일정이 추가되었습니다',

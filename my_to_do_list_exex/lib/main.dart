@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      localizationsDelegates: [ // pubspec.yaml에서 추가해야한다.
+      localizationsDelegates: [ // 이것을 추가해야 달력 일정을 한글로 쓸 수 있다.
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate

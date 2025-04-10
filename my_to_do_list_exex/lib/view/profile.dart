@@ -21,27 +21,27 @@ class Profile extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(Message.profileImagepath),
+              child: Image.asset(Message.profileImagepath), // 사진 파일명 이름
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(Message.profileName, style: TextStyle(fontSize: 30)),
+              child: Text(Message.profileName, style: TextStyle(fontSize: 30)), //  프로필 이름
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(Message.profileEmail, style: TextStyle(fontSize: 20)),
+              child: Text(Message.profileEmail, style: TextStyle(fontSize: 20)), // 프로필 이메일
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                Message.profileDetail,
+                Message.profileDetail,  // 프로필 자기소개
                 style: TextStyle(fontSize: 20),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 100, 8, 8),
               child: ElevatedButton(
-                onPressed: () => Get.to(Editprofile()),
+                onPressed: () => Get.to(Editprofile()), // 프로필 수정페이지로 이동
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.blue,

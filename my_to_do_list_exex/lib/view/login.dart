@@ -88,10 +88,10 @@ class _EnterState extends State<Login> {
 
   /// == functions == ///
 
-  loginCheck() {
+  loginCheck() { // 빈칸 입력 및 아이디 패스 워드 체크
     if (idController.text != Message.id || pwController.text != Message.pw) {
       Get.snackbar(
-        '확인해주세요', // 변수도 넣을 수 있다
+        '확인해주세요', 
         '아이디 혹은 비밀번호가 틀립니다.',
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 2),
@@ -105,7 +105,7 @@ class _EnterState extends State<Login> {
         '로그인에 성공하셨습니다.',
         snackPosition: SnackPosition.BOTTOM,
         duration: Duration(seconds: 2),
-        backgroundColor: Colors.blue, // 긍정메시지 송출은 팔나색
+        backgroundColor: Colors.blue, // 긍정메시지 송출은 파란색
         colorText: Colors.white,
       );
       Get.offAll(TodoListMain()); // 메인으로 보내기

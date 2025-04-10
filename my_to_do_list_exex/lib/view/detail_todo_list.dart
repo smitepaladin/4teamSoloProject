@@ -11,12 +11,12 @@ class DetailTodoList extends StatefulWidget {
 
 class _DetailTodoListState extends State<DetailTodoList> {
 
-  late TextEditingController textEditingController;
-  late DateTime todate;
-  late String selectDateText;
-  late int radioValue; // Radio Button
-  late String imagePath;
-  late String workList;
+  late TextEditingController textEditingController; // 이미 입력되어있는 일정상세값을 변경할 수 있는 텍스트필드
+  late DateTime todate; // date변수를 받기 위한 변수 추가
+  late String selectDateText; // date변수값을 년/월/일 로 표현한 String 타입 변수
+  late int radioValue; // Radio Button 변수
+  late String imagePath; // 이미지 파일명 변수
+  late String workList; // 일정 상세값 변수
 
 
   @override
@@ -25,7 +25,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
     textEditingController = TextEditingController();
     textEditingController.text = Message.workList;
     todate = Message.date;
-    radioValue = getCategoryRadioValue(Message.category); 
+    radioValue = getCategoryRadioValue(Message.category); // 이미 선택된 카테고리 값을 function을 통해 radioValue값을 뽑아낸다.
     selectDateText = "선택하신 일자는 ${Message.date.toString().substring(0, 10)} 입니다.";
     imagePath = Message.imagePath;
     workList = Message.workList;
@@ -59,7 +59,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
                           value: 0,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value), 
                         ),
                       ],
                     ),
@@ -75,7 +75,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
                           value: 1,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value), 
                         ),
                       ],
                     ),
@@ -91,7 +91,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
                           value: 2,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value),
                         ),
                       ],
                     ),
@@ -107,7 +107,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
                           value: 3,
                           groupValue: radioValue,
                           onChanged:
-                              (value) => radioChange(value), // value값이 ? 상태이다
+                              (value) => radioChange(value), 
                         ),
                       ],
                     ),
@@ -132,7 +132,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),                  
-                  onPressed: () => dispDatePicker(),
+                  onPressed: () => dispDatePicker(), // 달력 만들어내는 function
                   child: Text('달력에서 날짜선택'),
                 ),
               ),
@@ -148,13 +148,13 @@ class _DetailTodoListState extends State<DetailTodoList> {
                     ),
                   ),
                   onPressed: () {
-                    if (textEditingController.text.trim().isNotEmpty) {
-                      _showDialog();
+                    if (textEditingController.text.trim().isNotEmpty) { // 상세일정 미입력시 걸러내는 조건문
+                      _showDialog(); // 변경된 변수들을 실제로 반영하는 function
                     } else {
                       Get.snackbar(
                         '알림', 
                         '상세일정을 입력하세요.',
-                        snackPosition: SnackPosition.BOTTOM, // BOTTOM
+                        snackPosition: SnackPosition.BOTTOM, 
                         duration: Duration(seconds: 2),
                         backgroundColor: Colors.red,
                         colorText: Colors.white,
@@ -200,7 +200,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
     radioValue = value!; // !는 ? 를 해제한다
     setState(() {});
   }
-  String getCatetory(int radioValue) {
+  String getCatetory(int radioValue) { // 카테고리 문자열 변수를 뽑아내는 function
     String catogoryReturnValue = "";
 
     switch (radioValue) {
@@ -220,7 +220,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
     return catogoryReturnValue;
   }
 
-  String getImagepath(int radioValue) {
+  String getImagepath(int radioValue) { // 이미지 파일명을 뽑아내는 fucintion
     String imagePathreturnValue = "";
 
     switch (radioValue) {
@@ -240,7 +240,7 @@ class _DetailTodoListState extends State<DetailTodoList> {
     return imagePathreturnValue;
   }
 
-  int getCategoryRadioValue(String category) {
+  int getCategoryRadioValue(String category) { // 문자열 변수를 통해 RadioValue값을 뽑는 function
   switch (category) {
     case "구매":
       return 0;
@@ -279,7 +279,7 @@ _showDialog() {
         actions: [
           TextButton(
             onPressed: () {
-              editList(); // 수정 함수 호출
+              editList(); // 수정 함수
               Navigator.of(context).pop(); // Dialog 닫기
               buttonSnack();
             },
@@ -306,7 +306,7 @@ editList() {
   Message.action = true; // 수정이 완료되었음을 알림
 }
 
-  buttonSnack() {
+  buttonSnack() { // 일정수정 알림 스낵바
     Get.snackbar(
       '알림',
       '일정이 수정되었습니다',

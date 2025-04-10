@@ -17,12 +17,12 @@ class TodoListMain extends StatefulWidget {
 
 class _TodoListMainState extends State<TodoListMain> {
   //Property
-  late List<TodoListModel> todoListModel;
+  late List<TodoListModel> todoListModel; // 일정 리스트
 
   @override
   void initState() {
     super.initState();
-    todoListModel = Message.todoListModel;
+    todoListModel = Message.todoListModel; 
     setState(() {});
   }
 
@@ -37,11 +37,7 @@ class _TodoListMainState extends State<TodoListMain> {
           IconButton(
             onPressed: () async {
               await Get.to(Addtodolist());
-              rebuildData();
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => Addtodolist()),
-              // ).then((value) => rebuildData());
+              rebuildData(); // 일정 추가에서 받아온 변수를 리스트에 추가해주는 function
             },
             icon: Icon(Icons.add_outlined),
           ),
@@ -50,7 +46,7 @@ class _TodoListMainState extends State<TodoListMain> {
       drawer: Menudrawer(),
       body: Center(
         child:
-            todoListModel.isEmpty
+            todoListModel.isEmpty // 일정이 없는 경우 안내 메시지
                 ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -74,11 +70,11 @@ class _TodoListMainState extends State<TodoListMain> {
                       direction:
                           todoListModel[index].star
                               ? DismissDirection
-                                  .none // 중요 일정인 경우에는 스와이프 불가
-                              : DismissDirection.endToStart, // 일반 일정은 스와이프 가능
+                                  .none // 중요 일정인 경우에는 스와이프 불가 = 삭제 불가
+                              : DismissDirection.endToStart, // 일반 일정은 스와이프 가능 = 삭제 가능
                       key: ValueKey(todoListModel[index]),
                       onDismissed: (direction) {
-                        Message.recycleListModel.add(
+                        Message.recycleListModel.add( // 삭제된 index 를 휴지통 리스트에 추가
                           RecycleModel(
                             imagePath: todoListModel[index].imagePath,
                             workList: todoListModel[index].workList,
@@ -89,7 +85,7 @@ class _TodoListMainState extends State<TodoListMain> {
                           ),
                         );
 
-                        todoListModel.removeAt(index);
+                        todoListModel.removeAt(index); // 넘기고 삭제
                         setState(() {});
                         snackbar();
                       },
@@ -109,9 +105,9 @@ class _TodoListMainState extends State<TodoListMain> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailTodoList(),
+                              builder: (context) => DetailTodoList(), // 일정 수정 페이지로 이동
                             ),
-                          ).then((value) => getData());
+                          ).then((value) => getData()); // 일정 수정에서 넘어온 변수를 리스트에 넣어주는 function, then으로 받아 순서 정리
                         },
                         child: SizedBox(
                           height: 100,
@@ -122,7 +118,7 @@ class _TodoListMainState extends State<TodoListMain> {
                                     : Colors.white,
                             child: Row(
                               children: [
-                                Checkbox(
+                                Checkbox( // 체크박스는 단순 강조 용도
                                   value: todoListModel[index].check,
                                   onChanged: (value) {
                                     todoListModel[index].check = value!;
@@ -130,7 +126,7 @@ class _TodoListMainState extends State<TodoListMain> {
                                   },
                                 ),
                                 Image.asset(
-                                  todoListModel[index].imagePath,
+                                  todoListModel[index].imagePath, // 이미지 파일명
                                   height: 50,
                                 ),
                                 SizedBox(
@@ -144,32 +140,32 @@ class _TodoListMainState extends State<TodoListMain> {
                                           Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: Text(
-                                              todoListModel[index].category,
+                                              todoListModel[index].category, // 카테고리명
                                             ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.all(5.0),
                                             child: Text(
-                                              todoListModel[index].workList,
+                                              todoListModel[index].workList, // 일정 상세
                                             ),
                                           ),
                                         ],
                                       ),
                                       Text(
-                                        todoListModel[index].date
+                                        todoListModel[index].date // 일정 날짜
                                             .toString()
                                             .substring(0, 10),
                                       ),
                                     ],
                                   ),
                                 ),
-                                IconButton(
+                                IconButton( // 중요일정 여부를 결정하는 아이콘 버튼
                                   onPressed: () {
                                     todoListModel[index].star =
                                         !todoListModel[index].star;
 
                                     if (todoListModel[index].star == true) {
-                                      importantAddSnack();
+                                      importantAddSnack(); // 중요일정 추가 스낵바
 
                                       Message.importantListModel.add(
                                         ImportantModel(
@@ -185,9 +181,9 @@ class _TodoListMainState extends State<TodoListMain> {
                                         ),
                                       );
                                     } else {
-                                      importantDelSnack();
+                                      importantDelSnack(); // 중요일정 해제 스낵바
 
-                                      Message.importantListModel.removeWhere(
+                                      Message.importantListModel.removeWhere( // 중요일정 해제시 중요일정 리스터에서 삭제
                                         (item) =>
                                             item.imagePath ==
                                                 todoListModel[index]
@@ -223,7 +219,7 @@ class _TodoListMainState extends State<TodoListMain> {
 
   // functions ///
 
-  rebuildData() {
+  rebuildData() { // 일정 추가시 리스트에 추가해주는 function
     if (Message.action == true) {
       Message.todoListModel.add(
         TodoListModel(
@@ -241,7 +237,7 @@ class _TodoListMainState extends State<TodoListMain> {
     }
   }
 
-  getData() {
+  getData() {// 일정 수정시 리스트에서 수정해주는 function
     if (Message.action == true &&
         Message.index != -1 &&
         Message.index < Message.todoListModel.length) {
@@ -261,33 +257,33 @@ class _TodoListMainState extends State<TodoListMain> {
   }
 
 
-  snackbar(){
+  snackbar(){ // 일정삭제 알림 스넥바
     Get.snackbar(
-      '일정이 삭제되었습니다.', // 변수도 넣을 수 있다
+      '일정이 삭제되었습니다.', 
       '휴지통에서 복원이 가능합니다.',
-      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      snackPosition: SnackPosition.BOTTOM, 
       duration: Duration(seconds: 2),
       backgroundColor: Colors.red,
       colorText: Colors.white,
     );
   }
 
-  importantAddSnack() {
+  importantAddSnack() { // 중요일정 추가 알림 스낵바
     Get.snackbar(
       '중요일정이 추가되었습니다.', // 변수도 넣을 수 있다
       '중요일정은 삭제가 불가능합니다.',
-      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      snackPosition: SnackPosition.BOTTOM,
       duration: Duration(seconds: 2),
       backgroundColor: Colors.blue,
       colorText: Colors.white,
     );
   }
 
-  importantDelSnack() {
+  importantDelSnack() { // 중요일정 해제 알림 스낵바
     Get.snackbar(
-      '중요일정이 해제되었습니다.', // 변수도 넣을 수 있다
+      '중요일정이 해제되었습니다.', 
       '중요일정 목록에서도 삭제되었습니다.',
-      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      snackPosition: SnackPosition.BOTTOM, 
       duration: Duration(seconds: 2),
       backgroundColor: Colors.red,
       colorText: Colors.white,

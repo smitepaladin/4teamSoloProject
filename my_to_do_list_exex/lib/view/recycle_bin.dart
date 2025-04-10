@@ -22,7 +22,7 @@ class _RecycleBinState extends State<RecycleBin> {
       ),
       drawer: Menudrawer(),
       body:
-          Message.recycleListModel.isEmpty
+          Message.recycleListModel.isEmpty // 휴지통이 비었을 경우 안내 메시지
               ? Center(
                 child: Text(
                   '삭제된 일정이 없습니다.',
@@ -33,14 +33,14 @@ class _RecycleBinState extends State<RecycleBin> {
                 itemCount: Message.recycleListModel.length,
                 itemBuilder: (context, index) {
                   return Dismissible(
-                    direction: DismissDirection.horizontal,
+                    direction: DismissDirection.horizontal, // 스와이프 방향에 따라 복원, 완전삭제 구분
                     key: ValueKey(Message.recycleListModel[index]),
                     onDismissed: (direction) {
-                      if (direction == DismissDirection.endToStart) {
+                      if (direction == DismissDirection.endToStart) { // 완전삭제
                         Message.recycleListModel.removeAt(index);
                         setState(() {});
-                        buttonSnack();
-                      } else if (direction == DismissDirection.startToEnd) {
+                        buttonSnack(); // 완전삭제 알림 스낵바
+                      } else if (direction == DismissDirection.startToEnd) { // 일정 리스트로 복구
                         Message.todoListModel.add(
                           TodoListModel(
                             imagePath:
@@ -56,7 +56,7 @@ class _RecycleBinState extends State<RecycleBin> {
                         Message.recycleListModel.removeAt(index);
                         setState(() {});
 
-                        buttonRecycleSnack();
+                        buttonRecycleSnack(); // 복구 알림 스낵바
                       }
                     },
                     background: Container(
@@ -96,7 +96,7 @@ class _RecycleBinState extends State<RecycleBin> {
   // functions //
   buttonSnack() {
     Get.snackbar(
-      '알림', // 변수도 넣을 수 있다
+      '알림', 
       '일정이 완전히 삭제되었습니다.',
       snackPosition: SnackPosition.BOTTOM, // BOTTOM
       duration: Duration(seconds: 2),

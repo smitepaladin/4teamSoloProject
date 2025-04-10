@@ -14,7 +14,7 @@ class ImportantTodolist extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       drawer: Menudrawer(),
-      body: Message.importantListModel.isEmpty
+      body: Message.importantListModel.isEmpty // 중요 일정이 없는경우 안내 메시지 
           ? Center(
               child: Text(
                 '중요 일정이 없습니다.',

@@ -18,10 +18,10 @@ class Menudrawer extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage(Message.profileImagepath),
+              backgroundImage: AssetImage(Message.profileImagepath), // 프로필 이미지 파일명, 프로필 수정시 여기에도 반영된다.
             ),
-            accountName: Text(Message.profileName),
-            accountEmail: Text(Message.profileEmail),
+            accountName: Text(Message.profileName), // 프로필 이름
+            accountEmail: Text(Message.profileEmail), // 프로필 이메일
             decoration: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.only(
@@ -34,35 +34,35 @@ class Menudrawer extends StatelessWidget {
             leading: Icon(Icons.yard_outlined),
             title: Text('프로필보기'),
             onTap: () {
-              Get.to(Profile());
+              Get.to(Profile()); // 프로필 메뉴
             },
           ),
           ListTile(
             leading: Icon(Icons.today),
             title: Text('오늘의 일정'),
             onTap: () {
-              Get.to(TodoListMain());
+              Get.to(TodoListMain()); // 일정 메인
             },
           ),
           ListTile(
             leading: Icon(Icons.star),
             title: Text('중요일정'),
             onTap: () {
-              Get.to(ImportantTodolist());
+              Get.to(ImportantTodolist()); // 중요일정
             },
           ),
           ListTile(
             leading: Icon(Icons.recycling, color: Colors.red),
             title: Text('휴지통'),
             onTap: () {
-              Get.to(RecycleBin());
+              Get.to(RecycleBin()); // 휴지통
             },
           ),
           ListTile(
             leading: Icon(Icons.logout_outlined, color: Colors.black),
             title: Text('로그아웃'),
             onTap: () {
-              Get.offAll(Login());
+              Get.offAll(Login()); // 로그아웃
               logOutSnack();
             },
           ),
@@ -72,11 +72,11 @@ class Menudrawer extends StatelessWidget {
   } // build
   // functions //
 
-  logOutSnack() {
+  logOutSnack() { // 로그아웃 알림 스낵바
     Get.snackbar(
-      '알림', // 변수도 넣을 수 있다
+      '알림', 
       '로그아웃 되었습니다',
-      snackPosition: SnackPosition.BOTTOM, // BOTTOM
+      snackPosition: SnackPosition.BOTTOM, 
       duration: Duration(seconds: 2),
       backgroundColor: Colors.red,
       colorText: Colors.white,
